@@ -24,27 +24,16 @@
 
 ---
 
-## In Progress
+### v1.1 — Parallax Depth Layers
 
-### Parallax Depth Layers
+- **Three-layer parallax system** — background character, ghost artifact, and foreground content scroll at different rates during horizontal navigation
+- **`.panel-bg-char` parallax** — dynasty character drifts 120px total (60px in each direction) via GSAP `containerAnimation`, creating depth against the static panel
+- **`.panel-artifact-bg` mid-layer** — faint grayscale artifact image (`opacity: 0.035`, `grayscale(1)`, `contrast(0.5)`) positioned behind content, drifts 60px total
+- **`will-change: transform`** on both parallax layers for GPU compositing
+- **Mobile excluded** — artifact ghost hidden via `display: none` at `<= 900px`; no parallax tweens run outside desktop `matchMedia` block
+- **Graceful fallback** — `onerror` hides the artifact ghost if the image fails to load
 
-**Goal:** Create a 2.5D diorama effect within each dynasty panel by scrolling layered elements at different rates during horizontal navigation.
-
-**Three layers:**
-
-| Layer | Element | Speed | Purpose |
-|-------|---------|-------|---------|
-| Back | `.panel-bg-char` (dynasty character) | Slowest | Anchors the scene, feels like a distant wall |
-| Mid | `.panel-artifact-bg` (ghost artifact) | Medium | Adds atmospheric depth between background and content |
-| Front | `.panel-content` (text, cards, maps) | Normal (1:1) | Interactive foreground, scrolls with the user |
-
-**Approach:**
-- Use GSAP `containerAnimation` to tie parallax tweens to the existing horizontal scroll
-- Background character drifts ~80px counter to scroll direction
-- Mid-layer artifact ghost drifts ~40px, rendered at `opacity: 0.03` with `grayscale(1)`
-- Desktop only — skip on mobile for performance and because vertical scroll gains less from the effect
-
-**Design rationale:** The site already positions a large background character per panel. Adding a second atmospheric layer (faint artifact) and animating both at offset speeds turns each panel into a layered scene without adding new visual weight. Subtlety is key — the effect should be felt, not noticed.
+**Design rationale:** The horizontal scroll format makes parallax feel natural rather than gimmicky. Two atmospheric layers behind the content create a rice-paper diorama depth. Values kept deliberately subtle — the effect should be felt, not noticed.
 
 ---
 

@@ -255,6 +255,25 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   transform: translateY(-50%);
   line-height: 1;
   z-index: 0;
+  will-change: transform;
+}
+
+.panel-artifact-bg {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 18vw, 360px);
+  opacity: 0.035;
+  filter: grayscale(1) contrast(0.5) brightness(1.2);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+.panel-artifact-bg img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .panel-content {
@@ -922,6 +941,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  .panel-artifact-bg { display: none; }
   .panel-people-grid { grid-template-columns: 1fr 1fr; }
   .panel-artifact img { height: 140px; }
   .panel-stats { flex-wrap: wrap; }
@@ -1640,6 +1660,7 @@ DYNASTIES.forEach((d, i) => {
       <div class="ribbon-labels"><span>2100 BCE</span><span>Present</span></div>
     </div>
     <div class="panel-bg-char">${d.name}</div>
+    ${d.artifact ? `<div class="panel-artifact-bg"><img src="${d.artifact.url}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>` : ''}
     <div class="panel-content">
       <div class="panel-left">
         <div class="panel-era-label">${d.era}</div>
@@ -1782,6 +1803,46 @@ ScrollTrigger.matchMedia({
     });
 
     mainST = horizontalTween.scrollTrigger;
+
+    // ─── PARALLAX DEPTH LAYERS ───
+    panels.forEach(panel => {
+      const bgChar = panel.querySelector('.panel-bg-char');
+      const artifactBg = panel.querySelector('.panel-artifact-bg');
+
+      // Back layer: character drifts slowly against scroll
+      gsap.fromTo(bgChar,
+        { x: 60 },
+        {
+          x: -60,
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            containerAnimation: horizontalTween,
+            start: "left right",
+            end: "right left",
+            scrub: true,
+          }
+        }
+      );
+
+      // Mid layer: artifact ghost at medium offset
+      if (artifactBg) {
+        gsap.fromTo(artifactBg,
+          { x: 30 },
+          {
+            x: -30,
+            ease: "none",
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: horizontalTween,
+              start: "left right",
+              end: "right left",
+              scrub: true,
+            }
+          }
+        );
+      }
+    });
 
     // Panel visibility is handled in updateProgress() via onUpdate
 
