@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中華文明 — The Story of China</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1410;
+  --rice: #f5f0e8;
+  --rice-dark: #e8e0d0;
+  --vermillion: #c73e1d;
+  --vermillion-glow: #e8562f;
+  --gold: #c9a84c;
+  --gold-light: #e0c875;
+  --jade: #2d6a4f;
+  --jade-light: #40916c;
+  --silk: #8b7355;
+  --cloud: #d4c5a9;
+  --night: #0d0b09;
+  --dynasty-line: #b8a88a;
+  --celadon: #ace1af;
+  --indigo: #2c3e6b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scrollbar-width: thin; scrollbar-color: var(--silk) var(--night); }
+body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(--rice); overflow-x: hidden; }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #1a1510 0%, #0d0b09 70%);
+}
+
+.hero-bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 119px, var(--gold) 119px, var(--gold) 120px),
+    repeating-linear-gradient(0deg, transparent, transparent 119px, var(--gold) 119px, var(--gold) 120px);
+}
+
+.hero-mountain {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  opacity: 0.06;
+  background:
+    linear-gradient(135deg, transparent 40%, var(--gold) 40.5%, transparent 41%),
+    linear-gradient(160deg, transparent 55%, var(--silk) 55.5%, transparent 56%),
+    linear-gradient(125deg, transparent 30%, var(--gold) 30.5%, transparent 31%);
+}
+
+.hero-stamp {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: 900;
+  color: var(--vermillion);
+  text-shadow: 0 0 80px rgba(199,62,29,0.3), 0 0 160px rgba(199,62,29,0.1);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  animation: stampReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: scale(1.3);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes stampReveal { to { opacity: 1; transform: scale(1); } }
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 1.5rem;
+  animation: fadeUp 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.hero-desc {
+  font-size: 0.85rem;
+  color: var(--cloud);
+  max-width: 500px;
+  text-align: center;
+  line-height: 1.8;
+  margin-top: 2rem;
+  animation: fadeUp 1s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.hero-book-ref {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--silk);
+  margin-top: 1rem;
+  animation: fadeUp 1s 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeUp 1s 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards, float 3s 2.5s ease-in-out infinite;
+  opacity: 0;
+}
+
+.scroll-hint span { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silk); }
+.scroll-hint .line { width: 1px; height: 36px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+
+@keyframes scrollPulse { 0%,100% { opacity: 0.3; transform: scaleY(0.6); } 50% { opacity: 1; transform: scaleY(1); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ─── ERA NAV ─── */
+.era-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,11,9,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.era-nav::-webkit-scrollbar { display: none; }
+.era-nav-inner { display: flex; align-items: stretch; min-width: max-content; padding: 0 1rem; }
+
+.era-nav-btn {
+  background: none;
+  border: none;
+  color: var(--cloud);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.era-nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--vermillion);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-50%);
+}
+
+.era-nav-btn:hover, .era-nav-btn.active { color: var(--gold); }
+.era-nav-btn.active::after { width: 60%; }
+
+/* ─── INTRO ─── */
+.intro-section {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.intro-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+.intro-section p { font-size: 0.9rem; line-height: 1.9; color: var(--cloud); }
+
+.intro-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--silk);
+  margin-top: 1.5rem;
+  padding: 1.2rem 2rem;
+  border-left: 2px solid var(--vermillion);
+  text-align: left;
+}
+
+.intro-quote cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--vermillion);
+  margin-top: 0.5rem;
+}
+
+/* ─── HORIZONTAL TIMELINE ─── */
+.timeline-horizontal-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-horizontal-track {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+}
+
+/* ─── DYNASTY PANEL ─── */
+.dynasty-panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 3rem 4rem;
+  border-right: 1px solid rgba(201,168,76,0.06);
+}
+
+.panel-bg-char {
+  position: absolute;
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(14rem, 24vw, 28rem);
+  font-weight: 900;
+  color: var(--gold);
+  opacity: 0.04;
+  pointer-events: none;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  z-index: 0;
+}
+
+.panel-content {
+  display: flex;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.panel-left {
+  flex: 0 0 40%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--silk) transparent;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-right {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--silk) transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel typography */
+.panel-era-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 0.5rem;
+}
+
+.panel-dates {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--silk);
+  margin-bottom: 0.5rem;
+}
+
+.panel-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.panel-chinese {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.panel-english {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-weight: 600;
+  color: var(--rice);
+}
+
+.panel-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  color: var(--silk);
+  margin-bottom: 1.5rem;
+}
+
+.panel-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--vermillion), transparent);
+  margin-bottom: 1.5rem;
+  transform-origin: left;
+}
+
+.panel-description {
+  font-size: 0.84rem;
+  line-height: 1.85;
+  color: var(--cloud);
+  margin-bottom: 1.5rem;
+}
+
+.panel-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.detail-box {
+  background: rgba(201,168,76,0.03);
+  border: 1px solid rgba(201,168,76,0.07);
+  padding: 0.9rem 1.1rem;
+  border-radius: 2px;
+}
+
+.detail-box-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 0.3rem;
+}
+
+.detail-box-content {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--rice);
+}
+
+/* ─── PEOPLE IN PANELS ─── */
+.panel-people-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+
+.panel-people-grid {
+  display: grid;
+  gap: 0.8rem;
+  flex: 1;
+}
+
+.panel-people-grid[data-count="1"] { grid-template-columns: 1fr; }
+.panel-people-grid[data-count="2"] { grid-template-columns: 1fr; }
+.panel-people-grid[data-count="3"],
+.panel-people-grid[data-count="4"],
+.panel-people-grid[data-count="5"] { grid-template-columns: 1fr 1fr; }
+
+.person-card {
+  background: rgba(201,168,76,0.03);
+  border: 1px solid rgba(201,168,76,0.06);
+  border-radius: 2px;
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.person-card:hover {
+  border-color: rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.06);
+  transform: translateY(-2px);
+}
+
+.person-card.active {
+  border-color: var(--vermillion);
+  background: rgba(199,62,29,0.06);
+}
+
+.person-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.person-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--night);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(201,168,76,0.15);
+}
+
+.person-avatar.emperor { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+.person-avatar.poet { background: linear-gradient(135deg, var(--jade), var(--jade-light)); }
+.person-avatar.scholar { background: linear-gradient(135deg, var(--indigo), #4a6491); }
+.person-avatar.warrior { background: linear-gradient(135deg, var(--vermillion), var(--vermillion-glow)); }
+.person-avatar.explorer { background: linear-gradient(135deg, #5e4b8a, #7c6aad); }
+.person-avatar.revolutionary { background: linear-gradient(135deg, #8b2500, #c73e1d); }
+.person-avatar.philosopher { background: linear-gradient(135deg, #4a5568, #718096); }
+.person-avatar.artist { background: linear-gradient(135deg, #6b4c3b, #a0826d); }
+.person-avatar.woman { background: linear-gradient(135deg, #8b5e83, #b47eb0); }
+.person-avatar.general { background: linear-gradient(135deg, #5c3d2e, #8b6947); }
+.person-avatar.merchant { background: linear-gradient(135deg, #6b5b3d, #a89160); }
+
+.person-avatar-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.person-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+}
+
+.person-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.person-name-block { flex: 1; min-width: 0; }
+
+.person-chinese {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--rice);
+  line-height: 1.2;
+}
+
+.person-english {
+  font-size: 0.72rem;
+  color: var(--silk);
+  margin-top: 0.1rem;
+}
+
+.person-role {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.person-summary {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--cloud);
+}
+
+.person-bio {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+  opacity: 0;
+}
+
+.person-card.active .person-bio,
+.person-card.auto-expanded .person-bio {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 0.6rem;
+}
+
+.person-bio-inner {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--cloud);
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(201,168,76,0.08);
+}
+
+.person-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  margin-top: 0.5rem;
+  padding-left: 0.8rem;
+  border-left: 2px solid rgba(199,62,29,0.3);
+}
+
+.person-wood-note {
+  font-size: 0.7rem;
+  color: var(--silk);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* ─── PANEL IN-VIEW TRANSITIONS ─── */
+.dynasty-panel .panel-left > *,
+.dynasty-panel .person-card {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dynasty-panel .person-card {
+  transform: translateX(20px);
+}
+
+.dynasty-panel.in-view .panel-left > *,
+.dynasty-panel.in-view .person-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays for left column children */
+.dynasty-panel.in-view .panel-left > *:nth-child(1) { transition-delay: 0s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(2) { transition-delay: 0.04s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(3) { transition-delay: 0.08s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(4) { transition-delay: 0.12s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(5) { transition-delay: 0.16s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(6) { transition-delay: 0.2s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(7) { transition-delay: 0.24s; }
+.dynasty-panel.in-view .panel-left > *:nth-child(8) { transition-delay: 0.28s; }
+
+/* Stagger delays for person cards */
+.dynasty-panel.in-view .person-card:nth-child(1) { transition-delay: 0.1s; }
+.dynasty-panel.in-view .person-card:nth-child(2) { transition-delay: 0.16s; }
+.dynasty-panel.in-view .person-card:nth-child(3) { transition-delay: 0.22s; }
+.dynasty-panel.in-view .person-card:nth-child(4) { transition-delay: 0.28s; }
+.dynasty-panel.in-view .person-card:nth-child(5) { transition-delay: 0.34s; }
+
+.dynasty-panel .panel-divider {
+  transform: scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+.dynasty-panel.in-view .panel-divider {
+  transform: scaleX(1);
+}
+
+/* ─── PROGRESS BAR ─── */
+.timeline-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(13,11,9,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.7rem 2.5rem 0.8rem;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-top: 1px solid rgba(201,168,76,0.1);
+}
+
+.timeline-progress.visible {
+  transform: translateY(0);
+}
+
+.progress-track {
+  position: relative;
+  height: 2px;
+  background: rgba(201,168,76,0.12);
+  border-radius: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--vermillion), var(--gold));
+  border-radius: 1px;
+  width: 0%;
+  transition: width 0.15s ease-out;
+}
+
+.progress-tick {
+  position: absolute;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--night);
+  border: 1.5px solid rgba(184,168,138,0.4);
+  transform: translateX(-50%);
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 1;
+}
+
+.progress-tick:hover {
+  border-color: var(--gold);
+  transform: translateX(-50%) scale(1.3);
+}
+
+.progress-tick.active {
+  background: var(--vermillion);
+  border-color: var(--vermillion);
+  box-shadow: 0 0 10px rgba(199,62,29,0.5);
+  transform: translateX(-50%) scale(1.2);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-counter {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--silk);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-dynasty {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.75rem;
+  color: var(--rice);
+  opacity: 0.7;
+}
+
+.progress-era {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-top: 1px solid rgba(201,168,76,0.08);
+}
+
+.footer-chinese { font-family: 'Noto Serif SC', serif; font-size: 2rem; color: var(--vermillion); opacity: 0.4; }
+.footer p { font-size: 0.72rem; color: var(--silk); margin-top: 0.8rem; letter-spacing: 0.08em; }
+.footer .book-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--cloud); margin-top: 0.5rem; }
+
+/* ─── NOISE ─── */
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  .panel-left { flex: 0 0 38%; }
+  .panel-content { gap: 2.5rem; }
+}
+
+@media (max-width: 900px) {
+  .dynasty-panel {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    padding: 4.5rem 1.5rem 3rem;
+    scroll-snap-align: start;
+  }
+  .panel-content {
+    flex-direction: column;
+    gap: 2rem;
+    height: auto;
+  }
+  .panel-left {
+    flex: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+  .panel-right {
+    flex: none;
+    overflow-y: visible;
+  }
+  .panel-bg-char {
+    font-size: clamp(8rem, 40vw, 14rem);
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-detail-grid { grid-template-columns: 1fr; }
+  .panel-people-grid { grid-template-columns: 1fr; }
+  .timeline-horizontal-section {
+    overflow: visible !important;
+  }
+  .timeline-horizontal-track {
+    flex-direction: column;
+    width: 100% !important;
+    transform: none !important;
+    scroll-snap-type: y proximity;
+  }
+  .timeline-progress { display: none; }
+}
+
+@media (max-width: 600px) {
+  .dynasty-panel { padding: 4rem 1rem 2.5rem; }
+  .panel-chinese { font-size: clamp(2rem, 10vw, 2.5rem); }
+  .panel-english { font-size: 1rem; }
+  .person-card { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-mountain"></div>
+  <div class="hero-stamp">中華文明</div>
+  <div class="hero-subtitle">The Story of China</div>
+  <p class="hero-desc">An interactive journey through 5,000 years of civilization — emperors and peasants, poets and generals, inventors and rebels. Scroll to explore each dynasty, then click any figure to hear their story.</p>
+  <div class="hero-book-ref">A companion to Michael Wood's "The Story of China: A Portrait of a Civilisation and Its People"</div>
+  <div class="scroll-hint">
+    <span>Scroll to begin</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<nav class="era-nav" id="eraNav">
+  <div class="era-nav-inner" id="eraNavInner"></div>
+</nav>
+
+<section class="intro-section">
+  <h2>A Civilisation Unbroken</h2>
+  <p>China's story stretches across five millennia — the longest continuous civilisation on Earth. Michael Wood traces it not just through emperors and armies, but through the voices of peasants, poets, merchants, and women who shaped one-fifth of humanity. Scroll through each dynasty to explore its world, and click each person to hear their story.</p>
+  <div class="intro-quote">
+    "Everything that is united will fall apart and everything that is fallen apart will come back together again. So it has always been."
+    <cite>— Romance of the Three Kingdoms, opening line</cite>
+  </div>
+</section>
+
+<section class="timeline-horizontal-section" id="timeline">
+  <div class="timeline-horizontal-track" id="timelineTrack"></div>
+</section>
+
+<div class="timeline-progress" id="timelineProgress">
+  <div class="progress-track" id="progressTrack">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-info">
+    <span class="progress-counter" id="progressCounter">1 / 15</span>
+    <span class="progress-dynasty" id="progressDynasty"></span>
+    <span class="progress-era" id="progressEra"></span>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-chinese">天下</div>
+  <p class="book-note">"All under heaven"</p>
+  <p>Built as a companion to Michael Wood's The Story of China (Simon & Schuster, 2020)</p>
+  <p style="margin-top:0.3rem;font-size:0.6rem;opacity:0.5">Portrait images from Wikimedia Commons (public domain)</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollToPlugin.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+const DYNASTIES = [
+  {
+    id: "xia", era: "Ancient Origins", name: "夏", english: "Xia Dynasty",
+    dates: "c. 2070 – 1600 BCE",
+    tagline: "The dawn of dynastic rule",
+    description: "The semi-mythical first dynasty, traditionally founded by Yu the Great after he tamed the Great Flood. Archaeological evidence at Erlitou suggests a sophisticated Bronze Age culture in the Yellow River valley. Whether fully historical or partly legendary, the Xia established the foundational concept that would define Chinese politics forever: the Mandate of Heaven — the idea that Heaven grants authority to a virtuous ruler, and revokes it from a tyrant.",
+    capital: "Possibly Erlitou (near modern Luoyang)",
+    innovations: "Early bronze casting, irrigation, proto-urban planning",
+    legacy: "Established dynastic succession and the Mandate of Heaven",
+    people: [
+      {
+        chinese: "大禹", english: "Yu the Great", role: "Legendary Founder",
+        type: "emperor", icon: "禹",
+        summary: "Tamed the Great Flood through 13 years of tireless labour, channeling rivers rather than damming them.",
+        bio: "Yu is one of the foundational figures of Chinese civilisation. As Wood describes, the flood myths of ancient China are rooted in real geological events — catastrophic Yellow River floods that shaped the early Chinese consciousness. Yu's story embodies the Confucian ideal of selfless public service: he allegedly passed his own door three times without entering, so devoted was he to his work. His reward was the founding of a dynasty.",
+        quote: "Yu laboured until there was no hair left on his calves — such was his devotion to the people."
+      }
+    ]
+  },
+  {
+    id: "shang", era: "Ancient Origins", name: "商", english: "Shang Dynasty",
+    dates: "c. 1600 – 1046 BCE",
+    tagline: "Oracle bones and bronze ritual vessels",
+    description: "The first dynasty verified by contemporary written records — the famous oracle bones, inscribed tortoise shells used for divination. The Shang created some of the most extraordinary bronze ritual vessels ever made. Their society was deeply spiritual, with ancestor worship at its core. As Wood describes, the royal tombs at Yinxu reveal astonishing artistic achievement alongside brutal human sacrifice — a civilisation of extremes.",
+    capital: "Yin (near modern Anyang)",
+    innovations: "Oracle bone script (earliest Chinese writing), advanced bronze metallurgy, jade carving, silk weaving",
+    legacy: "Created Chinese writing; defined ritual bronze culture",
+    people: [
+      {
+        chinese: "婦好", english: "Fu Hao", role: "Warrior Queen & High Priestess",
+        type: "woman", icon: "好",
+        summary: "One of the wives of King Wu Ding, she led armies of 13,000 soldiers and conducted important ritual ceremonies.",
+        bio: "Fu Hao's undisturbed tomb, discovered in 1976, revealed over 1,600 objects including jade, bronze weapons, and oracle bones recording her military campaigns. She is one of the earliest named women in Chinese history whose deeds are documented. Wood highlights her as evidence that women in early China could hold extraordinary power — commanding troops, conducting state rituals, and managing territory.",
+        quote: ""
+      },
+      {
+        chinese: "武丁", english: "King Wu Ding", role: "Shang King",
+        type: "emperor", icon: "丁",
+        summary: "Ruled during the golden age of Shang power, expanding the kingdom and perfecting oracle bone divination.",
+        bio: "Wu Ding's reign represents the zenith of Shang civilisation. The oracle bones from his court provide the richest source of early Chinese writing, revealing not just divination but the workings of a complex state. He consulted the oracle bones about everything — war, weather, harvests, and the health of his queens.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "zhou", era: "Ancient Origins", name: "周", english: "Zhou Dynasty",
+    dates: "1046 – 256 BCE",
+    tagline: "The longest dynasty and the birth of philosophy",
+    description: "China's longest-reigning dynasty saw the flowering of its greatest philosophical traditions. As central authority declined, the Spring and Autumn period and Warring States brought chaos but also extraordinary intellectual ferment. This was China's Axial Age. As Wood writes, the Hundred Schools of Thought produced ideas that would shape East Asian civilisation forever — a period rivaling classical Greece for its impact on human thought.",
+    capital: "Haojing (Western), Luoyi (Eastern)",
+    innovations: "Iron smelting, crossbow, coinage, Confucianism, Daoism, Legalism, the Art of War",
+    legacy: "Philosophical foundations of all Chinese civilisation",
+    people: [
+      {
+        chinese: "孔子", english: "Confucius (Kong Qiu)", role: "Philosopher & Teacher",
+        type: "philosopher", icon: "孔",
+        summary: "The most influential thinker in Chinese history, whose teachings on ethics, family, and governance shaped two millennia of civilisation.",
+        bio: "Wood describes Confucius as a wandering teacher from a minor noble family who failed to gain political office but changed the world through his students. Born in Qufu, Shandong, he taught that social harmony comes from proper relationships, filial piety, and self-cultivation. His Analerta became the foundation of Chinese education. As Wood emphasises, Confucius was not just a moral philosopher — he was a radical who believed talent and virtue, not birth, should determine a person's role in society.",
+        quote: "Is it not a joy to have friends come from afar?"
+      },
+      {
+        chinese: "老子", english: "Laozi", role: "Founder of Daoism",
+        type: "philosopher", icon: "道",
+        summary: "Legendarily the keeper of the royal archives, said to have written the Dao De Jing before disappearing westward through the mountain passes.",
+        bio: "Whether Laozi was a historical individual or a composite figure remains debated. Wood treats him with appropriate ambiguity but focuses on the profound text attributed to him — the Dao De Jing — which offers a philosophy of yielding, naturalness, and the power of emptiness. Its influence on Chinese art, medicine, martial arts, and governance has been incalculable.",
+        quote: "The Dao that can be told is not the eternal Dao."
+      },
+      {
+        chinese: "孫子", english: "Sun Tzu", role: "Military Strategist",
+        type: "warrior", icon: "兵",
+        summary: "Author of The Art of War, still the world's most influential treatise on strategy and conflict.",
+        bio: "Sun Tzu's text emerged from the brutal reality of the Warring States period, when kingdoms fought for survival. Wood contextualises The Art of War within an era where strategy could mean the difference between a state's survival and annihilation. The text's emphasis on intelligence, deception, and winning without fighting reflects a sophistication far beyond simple military manuals.",
+        quote: "The supreme art of war is to subdue the enemy without fighting."
+      },
+      {
+        chinese: "孟子", english: "Mencius (Meng Ke)", role: "Confucian Philosopher",
+        type: "philosopher", icon: "孟",
+        summary: "The 'Second Sage' who argued human nature is fundamentally good and that rulers must govern with benevolence.",
+        bio: "Mencius expanded Confucian thought by insisting on the inherent goodness of human nature and the right of the people to rebel against unjust rulers. Wood notes his radical political ideas: that a ruler who governs badly has lost the Mandate of Heaven and may legitimately be overthrown. This doctrine became a powerful check on imperial power throughout Chinese history.",
+        quote: "The people are the most important element; the state comes next; the ruler is least important."
+      }
+    ]
+  },
+  {
+    id: "qin", era: "First Empires", name: "秦", english: "Qin Dynasty",
+    dates: "221 – 206 BCE",
+    tagline: "Unification by fire and iron",
+    description: "Brief but world-changing. Qin Shi Huang conquered all rival states and created the first unified Chinese empire. Wood describes the extraordinary efficiency and brutality of the Legalist state — standardising everything from script to axle widths, while burning books and burying scholars alive. The very name 'China' likely derives from 'Qin.' It lasted just fifteen years, but its institutional framework became the template for all subsequent Chinese history.",
+    capital: "Xianyang (near modern Xi'an)",
+    innovations: "Standardised writing, currency, measurements; Great Wall; Terracotta Army; national road system",
+    legacy: "Created the template for Chinese imperial statehood; gave China its name",
+    people: [
+      {
+        chinese: "秦始皇", english: "Qin Shi Huang", role: "The First Emperor",
+        type: "emperor", icon: "皇",
+        summary: "United China under one rule for the first time, standardised everything, and built the Great Wall — at enormous human cost.",
+        bio: "Wood paints him as one of history's most consequential figures — a visionary and a tyrant. Born Ying Zheng, he conquered six rival kingdoms by age 38 and declared himself Shi Huangdi, 'First Emperor.' He standardised writing, money, weights, and even cart axle widths to unify a fragmented land. But his Legalist methods were merciless: mass conscription, book burnings, live burials of scholars. His obsession with immortality drove him to drink mercury elixirs that likely killed him. His tomb, guarded by 8,000 terracotta warriors, remains one of archaeology's greatest discoveries. Wood includes the poignant detail of family letters found with the real soldiers of his army — ordinary men asking for shoes and news from home.",
+        quote: ""
+      },
+      {
+        chinese: "李斯", english: "Li Si", role: "Chancellor & Legalist Architect",
+        type: "scholar", icon: "斯",
+        summary: "The brilliant administrator who designed the Qin state system — standardisation, centralisation, and total control.",
+        bio: "Li Si was a student of the Legalist philosopher Xunzi who became the chief architect of Qin's administrative revolution. Wood describes how his system of counties and prefectures, replacing feudal fiefs, created the bureaucratic template China would use for two thousand years. After the First Emperor's death, Li Si was outmanoeuvred in a palace coup and executed by the method he had himself devised — being cut in half at the waist.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "han", era: "First Empires", name: "漢", english: "Han Dynasty",
+    dates: "206 BCE – 220 CE",
+    tagline: "The golden age that defined 'Chinese'",
+    description: "So defining was this dynasty that ethnic Chinese still call themselves 'Han people' (漢人). The Han established Confucianism as state ideology, created the civil service examination, opened the Silk Road, and produced breakthroughs in science and historiography. Wood draws parallels between the Han and Rome — contemporaneous empires of comparable sophistication. But while Rome fell, China's imperial system endured.",
+    capital: "Chang'an (Western), Luoyang (Eastern)",
+    innovations: "Paper, seismograph, compass, Silk Road, civil service examinations, acupuncture systematised",
+    legacy: "Defined Chinese identity; Confucian state model; connected China to the world",
+    people: [
+      {
+        chinese: "司馬遷", english: "Sima Qian", role: "Grand Historian",
+        type: "scholar", icon: "遷",
+        summary: "Father of Chinese historiography. Chose castration over death to complete his life's work — the Records of the Grand Historian.",
+        bio: "Wood gives Sima Qian particular prominence, calling him one of the great writers of world history. When Sima Qian defended a disgraced general, Emperor Wu offered him a choice: death, or castration. He chose the latter to complete the Shiji (Records of the Grand Historian), a monumental work covering Chinese history from the Yellow Emperor to his own time. His method of combining biography, chronology, and thematic essays established the template for all subsequent Chinese historical writing. Wood notes his extraordinary voice — personal, passionate, and painfully honest.",
+        quote: "I wished to examine all that encompasses heaven and man, to penetrate the changes of past and present.",
+        woodNote: "Wood calls Sima Qian 'one of the world's greatest historians — and certainly the most personally courageous.'"
+      },
+      {
+        chinese: "漢武帝", english: "Emperor Wu of Han", role: "Emperor & Empire-Builder",
+        type: "emperor", icon: "武",
+        summary: "Expanded the Han to its greatest extent, made Confucianism the state ideology, and opened the Silk Road.",
+        bio: "Emperor Wu reigned for 54 years, transforming the Han from a stable state into an expansionist empire. He sent Zhang Qian on the legendary mission to Central Asia that opened the Silk Road. He established the Imperial Academy to train officials in Confucian classics, creating the foundation of the examination system. Wood emphasises his complexity — a patron of arts and learning who was also a ruthless conqueror and increasingly paranoid ruler.",
+        quote: ""
+      },
+      {
+        chinese: "張騫", english: "Zhang Qian", role: "Explorer & Diplomat",
+        type: "explorer", icon: "騫",
+        summary: "The 'Chinese Columbus' who opened the Silk Road, spending 13 years as a captive before completing his mission.",
+        bio: "Sent by Emperor Wu to forge an alliance with nomadic peoples against the Xiongnu, Zhang Qian was captured and held prisoner for over a decade. He eventually escaped, reached Central Asia, and returned with knowledge of lands stretching to Rome. His reports opened the Silk Road — the greatest trade route in history. Wood follows the Silk Road westward, showing how Zhang Qian's journey connected China to the wider world for the first time.",
+        quote: ""
+      },
+      {
+        chinese: "班昭", english: "Ban Zhao", role: "Historian & Scholar",
+        type: "woman", icon: "昭",
+        summary: "First known female Chinese historian, completed her brother's history of the Western Han and tutored the empress.",
+        bio: "After her brother Ban Gu died in prison with his History of the Former Han unfinished, Ban Zhao was summoned to the imperial library to complete it. She became a trusted adviser to the empress and wrote 'Lessons for Women,' a text on female conduct that remained influential for centuries. Wood highlights her as evidence that even in patriarchal Han society, exceptional women could reach the highest intellectual circles.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "three-kingdoms", era: "Division & Reunification", name: "三國", english: "Three Kingdoms",
+    dates: "220 – 280 CE",
+    tagline: "Romance, rivalry, and the art of war",
+    description: "After the Han's collapse, China split into three rival states locked in shifting alliances. The era produced legendary figures whose stories — immortalised in the 14th-century Romance of the Three Kingdoms — became foundational to Chinese popular culture. Wood notes the novel's opening line still resonates: 'Everything that is united will fall apart, and everything that is fallen apart will come back together again.'",
+    capital: "Luoyang (Wei), Chengdu (Shu), Jianye (Wu)",
+    innovations: "Steel-making advances, military strategy, naval warfare",
+    legacy: "Foundational literary mythology; shaped Chinese storytelling forever",
+    people: [
+      {
+        chinese: "諸葛亮", english: "Zhuge Liang", role: "Strategist & Chancellor of Shu",
+        type: "scholar", icon: "亮",
+        summary: "The 'Sleeping Dragon' — China's quintessential genius strategist, whose brilliance is proverbial to this day.",
+        bio: "Zhuge Liang is arguably the most beloved figure in Chinese popular culture. Wood describes how the Romance of the Three Kingdoms elevated him to almost supernatural status — a master of strategy, invention, and statecraft. In reality, he was the chancellor of the Shu kingdom who kept a smaller state alive through sheer intelligence against overwhelming odds. Chinese idiom still uses his name as a synonym for wisdom.",
+        quote: ""
+      },
+      {
+        chinese: "曹操", english: "Cao Cao", role: "Warlord & Poet",
+        type: "warrior", icon: "操",
+        summary: "The ruthless, brilliant warlord who unified northern China — and was also one of the era's finest poets.",
+        bio: "Cao Cao is the great anti-hero of Chinese history. The Romance paints him as the villain, but historians recognise a military genius and talented poet who kept order in chaotic times. Wood notes the duality: Cao Cao wrote hauntingly beautiful poetry about the brevity of life while prosecuting relentless campaigns of conquest. He never claimed the imperial title for himself, leaving that to his son.",
+        quote: "Facing wine, one should sing — for how long is a human life?"
+      }
+    ]
+  },
+  {
+    id: "jin-south-north", era: "Division & Reunification", name: "南北朝", english: "Northern & Southern Dynasties",
+    dates: "265 – 589 CE",
+    tagline: "Fragmentation, Buddhism, and cultural fusion",
+    description: "A long era often overlooked but profoundly transformative. Buddhism spread explosively, producing the cave temples at Dunhuang, Yungang, and Longmen. Calligraphy reached new heights. As Wood emphasises, the 'barbarian' kingdoms in the north paradoxically enriched Chinese civilisation through cultural exchange — China was being remade from within.",
+    capital: "Various — Luoyang, Jiankang (Nanjing)",
+    innovations: "Buddhist cave art, advancement of calligraphy, landscape poetry, tea culture, porcelain",
+    legacy: "Buddhism became integral to Chinese culture; Han and steppe traditions fused",
+    people: [
+      {
+        chinese: "王羲之", english: "Wang Xizhi", role: "The Sage of Calligraphy",
+        type: "artist", icon: "書",
+        summary: "China's greatest calligrapher, whose 'Preface to the Orchid Pavilion' is considered the supreme masterpiece of Chinese writing.",
+        bio: "Wang Xizhi elevated calligraphy from craft to high art. His Lanting Xu (Preface to the Orchid Pavilion) was written while slightly drunk at a spring gathering of scholars and poets, and is considered so precious that Emperor Taizong of Tang allegedly had the original buried with him. Wood describes calligraphy as the most revered Chinese art form — and Wang Xizhi as its undisputed master.",
+        quote: ""
+      },
+      {
+        chinese: "陶淵明", english: "Tao Yuanming", role: "Poet of Retreat",
+        type: "poet", icon: "陶",
+        summary: "Quit his government post to farm and write poetry. Created the enduring Chinese archetype of the scholar retreating to nature.",
+        bio: "Tao Yuanming famously resigned from office, declaring he would not 'crook his back for five pecks of rice.' His poems about rural life, drinking wine, and contemplating chrysanthemums established an ideal that generations of Chinese intellectuals aspired to. Wood places him within the broader context of a society in crisis — the southern courts in flight from northern invaders — where withdrawal into nature was both personal philosophy and political statement.",
+        quote: "I pluck chrysanthemums under the eastern hedge, and gaze afar towards the southern mountains."
+      }
+    ]
+  },
+  {
+    id: "sui", era: "Division & Reunification", name: "隋", english: "Sui Dynasty",
+    dates: "581 – 618 CE",
+    tagline: "Reunification at immense cost",
+    description: "Like the Qin before it, the Sui was short-lived but achieved something monumental: reunifying China after centuries of division. Emperor Yang built the Grand Canal — the longest canal in the world at over 1,700 km — linking north and south China. But his ambition outran his resources, and disastrous Korean campaigns triggered rebellion.",
+    capital: "Daxing (Chang'an), Luoyang",
+    innovations: "Grand Canal, reunified legal code, expanded examination system",
+    legacy: "Reunified China; Grand Canal enabled economic integration for centuries",
+    people: [
+      {
+        chinese: "隋煬帝", english: "Emperor Yang of Sui", role: "Emperor & Builder",
+        type: "emperor", icon: "煬",
+        summary: "Built the Grand Canal at enormous human cost — a feat of engineering that still functions today, 1,400 years later.",
+        bio: "Wood portrays Emperor Yang as a man of extraordinary vision and terrible hubris. The Grand Canal, linking the Yangtze to the Yellow River, required millions of conscripted labourers and cost untold lives. But it transformed China's economy, enabling grain from the fertile south to feed the armies and cities of the north. His simultaneous campaigns against Korea — three failed invasions — exhausted the empire and sparked the rebellions that ended the dynasty.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "tang", era: "The Golden Ages", name: "唐", english: "Tang Dynasty",
+    dates: "618 – 907 CE",
+    tagline: "The cosmopolitan apex of Chinese civilisation",
+    description: "Widely considered the greatest era in Chinese history. Tang Chang'an was the largest and most cosmopolitan city in the world. Poetry reached its zenith. Women enjoyed unusual freedom — Wu Zetian became China's only female emperor. Buddhism, Islam, Nestorianism, and Zoroastrianism coexisted. Wood's television series calls the Tang 'China's first great international age,' whose cultural influence across Korea, Japan, and Vietnam established a lasting East Asian order.",
+    capital: "Chang'an (Xi'an)",
+    innovations: "Woodblock printing, gunpowder, porcelain, Tang legal code, tricolour pottery",
+    legacy: "Defined the golden age; cultural influence across all East Asia; the poetry canon",
+    people: [
+      {
+        chinese: "武則天", english: "Wu Zetian", role: "China's Only Female Emperor",
+        type: "woman", icon: "曌",
+        summary: "Rose from concubine to sole ruler of China — the only woman ever to take the title Emperor in Chinese history.",
+        bio: "Wu Zetian's rise is one of the most extraordinary stories in all of Chinese history. Entering the imperial court as a junior concubine, she navigated decades of palace intrigue to become first empress, then regent, and finally declared herself Emperor — founding her own brief Zhou dynasty. Wood describes her as ruthless, politically brilliant, and a genuine patron of Buddhism and meritocratic government. She promoted officials by talent rather than birth and expanded the examination system. Chinese historians have debated her legacy for centuries.",
+        quote: ""
+      },
+      {
+        chinese: "李白", english: "Li Bai (Li Po)", role: "The Immortal Poet",
+        type: "poet", icon: "白",
+        summary: "China's most celebrated poet — a wandering genius, heavy drinker, and Daoist immortal of verse. Legend says he drowned reaching for the moon's reflection.",
+        bio: "Li Bai is to Chinese poetry what Shakespeare is to English literature. Wood describes him as the embodiment of Tang creative freedom — a man of possibly Central Asian descent who wandered China writing poems of dazzling beauty, drinking prodigiously, and claiming to be a 'banished immortal.' His poems are lyrical, spontaneous, and suffused with moonlight and wine. The legend that he drowned trying to embrace the moon's reflection in a river captures his spirit perfectly.",
+        quote: "Raising my cup I toast the bright moon; with my shadow we are a party of three."
+      },
+      {
+        chinese: "杜甫", english: "Du Fu", role: "The Poet-Sage",
+        type: "poet", icon: "甫",
+        summary: "Where Li Bai soared, Du Fu suffered. His poems about war, famine, and the common people made him China's moral conscience.",
+        bio: "Du Fu is paired eternally with Li Bai as the two poles of Chinese poetry. While Li Bai drank and dreamed, Du Fu witnessed the An Lushan Rebellion — a catastrophe that killed millions and nearly destroyed the Tang. His poems about refugees, starving soldiers, and his own poverty became the gold standard for socially engaged verse. Wood uses his poetry to narrate the Tang's decline, showing how one man's personal suffering illuminated an empire's crisis.",
+        quote: "Behind the vermillion gates, meat and wine go to waste; on the road, lie the bones of those frozen to death."
+      },
+      {
+        chinese: "玄奘", english: "Xuanzang", role: "Buddhist Pilgrim & Scholar",
+        type: "explorer", icon: "玄",
+        summary: "Travelled overland to India and back — a 16-year, 10,000-mile journey to bring Buddhist scriptures to China.",
+        bio: "Wood gives Xuanzang a central role in the Story of China, following his route across the deserts and mountains of Central Asia to India. Defying an imperial travel ban, this monk walked to the great Buddhist university of Nalanda, studied for years, and returned with 657 Buddhist texts. His account of his travels is a priceless record of seventh-century Asia. His story was later fictionalised as Journey to the West, one of China's four great novels, with the beloved character Monkey King.",
+        quote: "",
+        woodNote: "Wood physically retraces Xuanzang's route in the documentary, calling him 'one of the greatest travellers in history.'"
+      }
+    ]
+  },
+  {
+    id: "song", era: "The Golden Ages", name: "宋", english: "Song Dynasty",
+    dates: "960 – 1279 CE",
+    tagline: "An economic revolution and the world's first modern society",
+    description: "Perhaps China's most underappreciated dynasty globally. It saw the world's first paper money, movable type printing, the magnetic compass, and gunpowder weapons. Its economy was the largest on Earth, with a population exceeding 100 million. Wood calls the Song 'China's Renaissance' — a commercial, technological, urban civilisation centuries before Europe's. He highlights Kaifeng as the world's greatest city before the 19th century.",
+    capital: "Bianjing/Kaifeng (Northern Song), Lin'an/Hangzhou (Southern Song)",
+    innovations: "Movable type, magnetic compass, paper currency, gunpowder weapons, mechanical clock, Champa rice",
+    legacy: "Proto-industrial revolution; Neo-Confucianism; artistic and technological apex",
+    people: [
+      {
+        chinese: "蘇軾", english: "Su Shi (Su Dongpo)", role: "Poet, Painter, Gastronome & Statesman",
+        type: "poet", icon: "蘇",
+        summary: "A Renaissance man before the Renaissance — poet, painter, calligrapher, engineer, gourmand, and political exile.",
+        bio: "Su Shi is one of the most beloved figures in Chinese history — a man of extraordinary versatility whose poetry, painting, calligraphy, and even cooking recipes remain celebrated today. Wood describes his tumultuous political career, which saw him repeatedly exiled for his outspoken views. He invented the famous dish Dongpo Pork while in exile. His poetry moves between philosophical depth and playful wit with effortless grace.",
+        quote: "The moon waxes and wanes, people part and reunite — such things have been imperfect since ancient times."
+      },
+      {
+        chinese: "李清照", english: "Li Qingzhao", role: "China's Greatest Woman Poet",
+        type: "woman", icon: "清",
+        summary: "The most celebrated female poet in Chinese history, whose verses of love, loss, and wine remain unmatched.",
+        bio: "Wood gives Li Qingzhao particular attention, quoting her luminous ci (lyric poetry) at length. She lived during the fall of the Northern Song — her early poems describe an idyllic marriage filled with scholarly pleasures, tea, and wine. After the Jurchen invasion and the death of her husband, her later poems became some of the most poignant expressions of grief and exile in Chinese literature. She eventually became a publisher in Hangzhou. One Goodreads reviewer of Wood's book called her section their favourite passage.",
+        quote: "By the fire we made tea… and were untroubled by sudden storms… so long as we could share a cup of wine, and a sheet of fine paper.",
+        woodNote: "Wood highlights Li Qingzhao's remarkable independence: 'Concubines, war, and widowhood would turn her to a career in Hangzhou publishing poetry and essays.'"
+      },
+      {
+        chinese: "蘇頌", english: "Su Song", role: "Polymath & Inventor",
+        type: "scholar", icon: "頌",
+        summary: "Built the world's first astronomical clock tower — 'China's Leonardo da Vinci,' as Wood calls him.",
+        bio: "Su Song designed and built a monumental water-powered astronomical clock tower in Kaifeng in 1088 — a mechanical marvel that tracked the movements of the sun, moon, and stars. Wood calls him 'China's Leonardo da Vinci' and uses his clock as evidence of the Song's extraordinary scientific achievement. The clock was lost when the Jurchen conquered Kaifeng, and nothing comparable was built in Europe for centuries.",
+        quote: "",
+        woodNote: "In the PBS series, Wood shows a working replica of Su Song's clock, calling it 'one of the greatest achievements of medieval science.'"
+      },
+      {
+        chinese: "司馬光", english: "Sima Guang", role: "Historian & Chancellor",
+        type: "scholar", icon: "光",
+        summary: "Wrote the Comprehensive Mirror to Aid in Government — China's greatest work of political history after Sima Qian.",
+        bio: "Sima Guang's monumental history covered 1,362 years of Chinese history and was explicitly written to teach rulers through historical example. Wood draws on his work as a key source for understanding China's political thought. As chancellor, Sima Guang led the conservative faction against Wang Anshi's radical reforms — a political drama that paralysed the Song court.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "yuan", era: "Conquest & Restoration", name: "元", english: "Yuan Dynasty (Mongol)",
+    dates: "1271 – 1368 CE",
+    tagline: "When the steppe swallowed the empire",
+    description: "Kublai Khan established the first non-Han dynasty to rule all of China. The Mongol Pax connected China to Europe more directly than ever before. Marco Polo visited Kublai's court in Dadu (Beijing). The Yuan promoted vernacular drama and literature. But ethnic hierarchy and heavy taxation fuelled revolts that brought it down.",
+    capital: "Dadu (Beijing)",
+    innovations: "Blue-and-white porcelain, Yuan drama, enhanced Grand Canal, transcontinental postal system",
+    legacy: "Connected China to Eurasia; established Beijing as capital; vernacular literature",
+    people: [
+      {
+        chinese: "忽必烈", english: "Kublai Khan", role: "Mongol Emperor of China",
+        type: "emperor", icon: "忽",
+        summary: "Grandson of Genghis Khan who completed the conquest of China and built a new capital at Beijing.",
+        bio: "Kublai Khan was both a Mongol warrior and a Chinese emperor — a man caught between two worlds. Wood describes how he deliberately adopted Chinese imperial traditions while maintaining Mongol military supremacy. He built Dadu (Beijing), established a paper currency economy, and patronised Chinese arts and scholarship. His court attracted visitors from across Eurasia, including Marco Polo, whose account made China famous in Europe.",
+        quote: ""
+      },
+      {
+        chinese: "關漢卿", english: "Guan Hanqing", role: "Father of Chinese Drama",
+        type: "artist", icon: "劇",
+        summary: "The greatest playwright of the Yuan era, whose works gave voice to the oppressed under Mongol rule.",
+        bio: "Under the Yuan, Chinese intellectuals were barred from government service, and many turned to writing for the popular stage. Guan Hanqing's plays — particularly The Injustice to Dou E — gave voice to the suffering of ordinary people under foreign rule. Wood describes how Mongol occupation paradoxically produced a golden age of vernacular Chinese literature, as blocked scholars channelled their talents into popular entertainment.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "ming", era: "Conquest & Restoration", name: "明", english: "Ming Dynasty",
+    dates: "1368 – 1644 CE",
+    tagline: "Restoration, exploration, and the Forbidden City",
+    description: "Founded by Zhu Yuanzhang, a peasant-turned-emperor whom Wood calls 'one of the greatest figures in Chinese history.' The Ming built the Forbidden City, renovated the Great Wall, and sent Zheng He's treasure fleets across the Indian Ocean decades before Columbus. The novel flourished. Yet the dynasty also turned inward, eventually closing its doors.",
+    capital: "Nanjing (early), Beijing (from 1421)",
+    innovations: "Forbidden City, stone Great Wall, Zheng He's voyages, blue-and-white porcelain, the novel",
+    legacy: "Iconic architecture and porcelain; naval exploration; literary classics",
+    people: [
+      {
+        chinese: "朱元璋", english: "Zhu Yuanzhang (Hongwu Emperor)", role: "Peasant-Turned-Emperor",
+        type: "emperor", icon: "洪",
+        summary: "From orphan beggar to Buddhist novice to rebel leader to founder of one of China's greatest dynasties.",
+        bio: "Wood gives Hongwu a central place in his narrative — the ultimate rags-to-riches story in Chinese history. Born into desperate poverty, orphaned by famine, he joined a Buddhist monastery, then a rebel army, and fought his way to the dragon throne. As emperor he was energetic, suspicious, and increasingly brutal — purging tens of thousands of officials. Yet he also rebuilt China from the ruins of Mongol rule, creating institutions that would last nearly three centuries.",
+        quote: "",
+        woodNote: "Wood calls him 'a former peasant and rebel who became one of the greatest figures in Chinese history.'"
+      },
+      {
+        chinese: "鄭和", english: "Zheng He", role: "Admiral & Explorer",
+        type: "explorer", icon: "鄭",
+        summary: "Led the largest naval expeditions in history — treasure fleets of 300 ships reaching Africa, decades before Columbus.",
+        bio: "Zheng He was a Muslim eunuch from Yunnan who became the greatest maritime explorer of his age. Between 1405 and 1433, he commanded seven voyages across the Indian Ocean with fleets of enormous treasure ships — some allegedly over 120 metres long. He reached Southeast Asia, India, Arabia, and East Africa. Wood explores the great counterfactual: what if China had continued these voyages instead of abruptly ending them? The world might look very different.",
+        quote: ""
+      },
+      {
+        chinese: "利瑪竇", english: "Matteo Ricci", role: "Jesuit Missionary & Cultural Bridge",
+        type: "scholar", icon: "利",
+        summary: "The Italian Jesuit who learned Chinese, dressed as a Confucian scholar, and began China's 'fateful exchanges with the West.'",
+        bio: "Ricci arrived in Macao in 1582 and spent nearly three decades in China, learning the language, translating scientific works, and building a world map that introduced Chinese scholars to the geography of Europe and the Americas. Wood describes his arrival as the beginning of China's 'fateful modern exchanges with the West.' Ricci tried to synthesise Confucianism and Christianity — a project that fascinated Chinese intellectuals but ultimately troubled Rome.",
+        quote: ""
+      }
+    ]
+  },
+  {
+    id: "qing", era: "Last Empire & Modernity", name: "清", english: "Qing Dynasty (Manchu)",
+    dates: "1644 – 1912 CE",
+    tagline: "The last empire — zenith and humiliation",
+    description: "China's last imperial dynasty and its largest in territory. Under Kangxi and Qianlong, it was arguably the wealthiest state on Earth. But the 19th century brought the Opium Wars, the Taiping Rebellion (20–30 million dead), and relentless foreign encroachment. Wood argues this era created the 'century of humiliation' that still shapes Chinese politics today. The dynasty's fall in 1911 ended over two thousand years of imperial rule.",
+    capital: "Beijing",
+    innovations: "Siku Quanshu encyclopedia, Banner system, greatest territorial extent",
+    legacy: "Defined modern China's borders; the 'century of humiliation' shapes politics to this day",
+    people: [
+      {
+        chinese: "康熙", english: "Kangxi Emperor", role: "China's Greatest Emperor",
+        type: "emperor", icon: "康",
+        summary: "Ruled for 61 years — the longest reign in Chinese history. Wood argues he was China's greatest emperor.",
+        bio: "Kangxi ascended the throne aged seven and ruled until 1722, becoming one of the most accomplished monarchs in world history. He personally led military campaigns, mastered Confucian classics, studied Western mathematics with Jesuit tutors, commissioned the great Kangxi Dictionary, and presided over an era of stability and cultural flowering. Wood calls him China's greatest emperor — a man of insatiable curiosity, political skill, and genuine concern for his subjects.",
+        quote: "",
+        woodNote: "Wood argues Kangxi was 'China's greatest emperor,' combining military prowess with genuine intellectual curiosity."
+      },
+      {
+        chinese: "曹雪芹", english: "Cao Xueqin", role: "Author of Dream of the Red Chamber",
+        type: "artist", icon: "夢",
+        summary: "Wrote China's most beloved novel — a vast, semi-autobiographical epic of a great family's decline.",
+        bio: "Dream of the Red Chamber (also known as The Story of the Stone) is widely regarded as the greatest Chinese novel. Wood tracks the author in the bars of north Beijing, where Cao Xueqin wrote about his own family's fall from imperial favour. The novel's extraordinary detail about Qing aristocratic life — food, fashion, poetry, medicine, Buddhism, love — makes it an encyclopaedia of Chinese culture. Its central love triangle and portrait of a family's decline across generations have moved readers for 250 years.",
+        quote: "",
+        woodNote: "In the PBS series, Wood 'tracks the author of China's most loved novel' in the old lanes of Beijing."
+      },
+      {
+        chinese: "慈禧", english: "Empress Dowager Cixi", role: "De Facto Ruler for 47 Years",
+        type: "woman", icon: "慈",
+        summary: "The concubine who became the most powerful woman in Chinese history, dominating the late Qing from behind a silk screen.",
+        bio: "Cixi ruled China from behind the scenes for nearly half a century — through two emperors, multiple crises, and the Boxer Rebellion. Historians have debated her legacy fiercely: was she a reactionary who prevented modernisation, or a pragmatic ruler navigating impossible circumstances? Wood treats her with nuance, noting that she did eventually approve reforms — too late to save the dynasty.",
+        quote: ""
+      },
+      {
+        chinese: "秋瑾", english: "Qiu Jin", role: "Feminist Revolutionary",
+        type: "revolutionary", icon: "瑾",
+        summary: "Left her husband and children to study in Japan and fight for revolution. Executed at age 31.",
+        bio: "Wood highlights Qiu Jin as one of the most electrifying figures of late imperial China. She abandoned a traditional marriage, traveled to Japan, wrote revolutionary manifestos demanding women's rights and the overthrow of the Qing, and returned to organise an armed uprising. When the plot was discovered, she refused to flee. She was beheaded in 1907, becoming a martyr for both revolution and feminism. Wood pairs her with He Zhen, another feminist revolutionary whose writings challenged patriarchy at its foundations.",
+        quote: "",
+        woodNote: "Wood describes the 'electrifying manifestos' of Qiu Jin and He Zhen as among the most powerful voices of late imperial China."
+      }
+    ]
+  },
+  {
+    id: "roc", era: "Last Empire & Modernity", name: "民國", english: "Republic of China",
+    dates: "1912 – 1949",
+    tagline: "Revolution, warlords, and total war",
+    description: "The Qing's fall left a power vacuum. Sun Yat-sen's Republic gave way to warlord chaos. The May Fourth Movement (1919) demanded science and democracy. Japan invaded. Civil war consumed the nation. Wood uses eyewitness accounts to describe the Japanese invasion and the communist revolution that followed — the bloodiest chapter in China's modern story.",
+    capital: "Nanjing (nominal), Chongqing (wartime)",
+    innovations: "Modern education, vernacular literature movement, early industrialisation",
+    legacy: "End of imperial system; foundations of modern Chinese identity",
+    people: [
+      {
+        chinese: "孫中山", english: "Sun Yat-sen", role: "Father of the Republic",
+        type: "revolutionary", icon: "孫",
+        summary: "The revolutionary who finally toppled two thousand years of imperial rule and proclaimed the Chinese Republic.",
+        bio: "Sun Yat-sen is revered on both sides of the Taiwan Strait as the father of modern China. Educated in Hawaii and Hong Kong, he spent years in exile organising revolutionary cells before the 1911 uprising finally succeeded. His 'Three Principles of the People' — nationalism, democracy, and people's livelihood — remain influential. Wood describes his tireless, often frustrated efforts to build a modern state from the ruins of empire.",
+        quote: "The revolution is not yet complete; comrades, you must carry on."
+      },
+      {
+        chinese: "魯迅", english: "Lu Xun", role: "China's Greatest Modern Writer",
+        type: "artist", icon: "魯",
+        summary: "Abandoned medicine to become a writer, believing only literature could cure China's spiritual malaise.",
+        bio: "Lu Xun is to modern Chinese literature what Confucius is to philosophy — the foundational figure. He wrote biting, compassionate stories about Chinese society's failures, most famously 'A Madman's Diary' and 'The True Story of Ah Q.' He trained as a doctor in Japan but decided that China's sickness was spiritual, not physical, and devoted himself to writing. His influence on Chinese intellectual life was immense and enduring.",
+        quote: "Hope is like a path in the countryside: originally there was no path, but when many people walk the same way, a path is created."
+      }
+    ]
+  },
+  {
+    id: "prc", era: "Last Empire & Modernity", name: "人民共和國", english: "People's Republic",
+    dates: "1949 – Present",
+    tagline: "From revolution to global power",
+    description: "Mao declared the People's Republic on October 1, 1949. The Great Leap Forward famine and the Cultural Revolution devastated China. Deng Xiaoping's post-1978 reforms unleashed the greatest economic transformation in history. Wood describes it using 'newly opened archives' and 'newly leaked documents,' bringing fresh insights to the Tiananmen crisis and the new order of President Xi Jinping. The final chapter asks the provocative question: when, if ever, will China rule the world?",
+    capital: "Beijing",
+    innovations: "Economic reform, special economic zones, high-speed rail, space program, digital economy",
+    legacy: "History's largest economic transformation; ongoing reinterpretation of 5,000 years of civilisation",
+    people: [
+      {
+        chinese: "毛澤東", english: "Mao Zedong", role: "Founding Chairman",
+        type: "revolutionary", icon: "毛",
+        summary: "United China through revolution, then devastated it through utopian campaigns. The most consequential Chinese figure of the 20th century.",
+        bio: "Wood provides what he describes as 'a more balanced view of Mao based on newly-opened archives.' He follows Mao's Long March to Yan'an, describes the communist victory, and then the tragic arc of the Great Leap Forward — a famine that killed tens of millions — and the Cultural Revolution, which destroyed China's cultural heritage and persecuted its intellectuals. Wood includes 'extraordinary eye-witness accounts' from both catastrophes.",
+        quote: ""
+      },
+      {
+        chinese: "鄧小平", english: "Deng Xiaoping", role: "Architect of Modern China",
+        type: "emperor", icon: "鄧",
+        summary: "Purged twice during the Cultural Revolution, he returned to launch the economic reforms that transformed China into a global power.",
+        bio: "Deng Xiaoping's post-1978 reforms represent one of the most dramatic transformations in human history. His pragmatic approach — 'It doesn't matter whether a cat is black or white, as long as it catches mice' — opened China to foreign investment, created special economic zones, and lifted hundreds of millions from poverty. Wood traces the boom from Shenzhen to Shanghai, while also addressing the 1989 Tiananmen crisis using 'newly leaked inside documents.'",
+        quote: "To get rich is glorious."
+      }
+    ]
+  }
+];
+
+const ERA_GROUPS = [
+  { label: "Ancient", eras: ["xia", "shang", "zhou"] },
+  { label: "First Empires", eras: ["qin", "han"] },
+  { label: "Division & Tang", eras: ["three-kingdoms", "jin-south-north", "sui", "tang"] },
+  { label: "Song & Yuan", eras: ["song", "yuan"] },
+  { label: "Ming & Qing", eras: ["ming", "qing"] },
+  { label: "Modern", eras: ["roc", "prc"] }
+];
+
+// ─── IMAGE MAP — Wikimedia Commons public domain portraits ───
+const IMG = {
+  "孔子": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Confucius_Tang_Dynasty.jpg/200px-Confucius_Tang_Dynasty.jpg",
+  "老子": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Zhang_Lu-Laozi_Riding_an_Ox.jpg/200px-Zhang_Lu-Laozi_Riding_an_Ox.jpg",
+  "孟子": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Mencius.jpg/200px-Mencius.jpg",
+  "秦始皇": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Qinshihuang.jpg/200px-Qinshihuang.jpg",
+  "司馬遷": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Sima_Qian_%28painted_portrait%29.jpg/200px-Sima_Qian_%28painted_portrait%29.jpg",
+  "漢武帝": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/%E6%BC%A2%E6%AD%A6%E5%B8%9D.jpg/200px-%E6%BC%A2%E6%AD%A6%E5%B8%9D.jpg",
+  "武則天": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/A_Tang_Dynasty_Empress_Wu_Zetian.JPG/200px-A_Tang_Dynasty_Empress_Wu_Zetian.JPG",
+  "李白": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/LiBai.jpg/200px-LiBai.jpg",
+  "杜甫": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Du_Fu.jpg/200px-Du_Fu.jpg",
+  "玄奘": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Xuanzang_w.jpg/200px-Xuanzang_w.jpg",
+  "蘇軾": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Su_Shi.jpg/200px-Su_Shi.jpg",
+  "李清照": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Li_Qingzhao.jpg/200px-Li_Qingzhao.jpg",
+  "忽必烈": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/YuanEmperorAlbumKhubilaiPortrait.jpg/200px-YuanEmperorAlbumKhubilaiPortrait.jpg",
+  "朱元璋": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Zhu_yuanzhang.jpg/200px-Zhu_yuanzhang.jpg",
+  "鄭和": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Zheng_He.jpg/200px-Zheng_He.jpg",
+  "利瑪竇": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Matteo_Ricci_2.jpg/200px-Matteo_Ricci_2.jpg",
+  "康熙": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Portrait_of_the_Kangxi_Emperor_in_Court_Dress.jpg/200px-Portrait_of_the_Kangxi_Emperor_in_Court_Dress.jpg",
+  "慈禧": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/The_Ci-Xi_Imperial_Dowager_Empress_%285%29.JPG/200px-The_Ci-Xi_Imperial_Dowager_Empress_%285%29.JPG",
+  "秋瑾": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Qiu_Jin.jpg/200px-Qiu_Jin.jpg",
+  "孫中山": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sun_Yat-sen_2.jpg/200px-Sun_Yat-sen_2.jpg",
+  "魯迅": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/LuXun1930.jpg/200px-LuXun1930.jpg",
+  "毛澤東": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Mao_Zedong_1950_Portrait_%283x4_cropped%29%282%29.jpg/200px-Mao_Zedong_1950_Portrait_%283x4_cropped%29%282%29.jpg",
+  "鄧小平": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Deng_Xiaoping.jpg/200px-Deng_Xiaoping.jpg",
+  "諸葛亮": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Zhuge_Liang_Erta.jpg/200px-Zhuge_Liang_Erta.jpg",
+  "曹操": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Cao_Cao_scth.jpg/200px-Cao_Cao_scth.jpg",
+  "張騫": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Zhang_Qian.jpg/200px-Zhang_Qian.jpg",
+  "班昭": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Ban_Zhao.jpg/200px-Ban_Zhao.jpg",
+};
+
+// ─── BUILD NAV ───
+const navInner = document.getElementById('eraNavInner');
+const navBtns = [];
+ERA_GROUPS.forEach(g => {
+  const btn = document.createElement('button');
+  btn.className = 'era-nav-btn';
+  btn.textContent = g.label;
+  btn.dataset.target = g.eras[0];
+  navInner.appendChild(btn);
+  navBtns.push(btn);
+});
+
+// ─── BUILD PANELS ───
+const track = document.getElementById('timelineTrack');
+const totalPanels = DYNASTIES.length;
+
+DYNASTIES.forEach((d, i) => {
+  const panel = document.createElement('div');
+  panel.className = 'dynasty-panel';
+  panel.id = `dynasty-${d.id}`;
+  panel.dataset.index = i;
+  panel.dataset.era = d.era;
+
+  const peopleCount = d.people.length;
+  const autoExpand = peopleCount <= 2;
+
+  const peopleHtml = d.people.map((p, pi) => {
+    const bioHtml = p.bio ? `<div class="person-bio"><div class="person-bio-inner">${p.bio}${p.quote ? `<div class="person-quote">"${p.quote}"</div>` : ''}${p.woodNote ? `<div class="person-wood-note">\u{1F4D6} ${p.woodNote}</div>` : ''}</div></div>` : '';
+    const imgUrl = IMG[p.chinese] || '';
+    const avatarContent = imgUrl
+      ? `<img src="${imgUrl}" alt="${p.english}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="person-avatar-fallback" style="display:none">${p.icon}</span>`
+      : `<span class="person-avatar-fallback">${p.icon}</span>`;
+    return `
+      <div class="person-card${autoExpand ? ' auto-expanded' : ''}" data-person="${d.id}-${pi}">
+        <div class="person-header">
+          <div class="person-avatar ${p.type}">${avatarContent}</div>
+          <div class="person-name-block">
+            <div class="person-chinese">${p.chinese}</div>
+            <div class="person-english">${p.english}</div>
+          </div>
+        </div>
+        <div class="person-role">${p.role}</div>
+        <div class="person-summary">${p.summary}</div>
+        ${bioHtml}
+      </div>
+    `;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="panel-bg-char">${d.name}</div>
+    <div class="panel-content">
+      <div class="panel-left">
+        <div class="panel-era-label">${d.era}</div>
+        <div class="panel-dates">${d.dates}</div>
+        <div class="panel-name-row">
+          <span class="panel-chinese">${d.name}</span>
+          <span class="panel-english">${d.english}</span>
+        </div>
+        <div class="panel-tagline">${d.tagline}</div>
+        <div class="panel-divider"></div>
+        <p class="panel-description">${d.description}</p>
+        <div class="panel-detail-grid">
+          <div class="detail-box">
+            <div class="detail-box-label">Capital</div>
+            <div class="detail-box-content">${d.capital}</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-box-label">Key Innovations</div>
+            <div class="detail-box-content">${d.innovations}</div>
+          </div>
+        </div>
+        <div class="detail-box" style="margin-top:0.8rem;">
+          <div class="detail-box-label">Lasting Legacy</div>
+          <div class="detail-box-content">${d.legacy}</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="panel-people-title">Key Figures</div>
+        <div class="panel-people-grid" data-count="${peopleCount}">
+          ${peopleHtml}
+        </div>
+      </div>
+    </div>
+  `;
+
+  track.appendChild(panel);
+});
+
+// ─── BUILD PROGRESS TICKS ───
+const progressTrack = document.getElementById('progressTrack');
+DYNASTIES.forEach((d, i) => {
+  const tick = document.createElement('div');
+  tick.className = 'progress-tick';
+  tick.style.left = `${(i / (totalPanels - 1)) * 100}%`;
+  tick.title = `${d.english} (${d.dates})`;
+  tick.dataset.index = i;
+  progressTrack.appendChild(tick);
+});
+
+// ─── PERSON EXPAND ───
+document.querySelectorAll('.person-card:not(.auto-expanded)').forEach(card => {
+  card.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wasActive = card.classList.contains('active');
+    card.closest('.panel-people-grid').querySelectorAll('.person-card.active').forEach(c => c.classList.remove('active'));
+    if (!wasActive) card.classList.add('active');
+  });
+});
+
+// ─── PROGRESS + NAV HELPERS ───
+const progressFill = document.getElementById('progressFill');
+const progressCounter = document.getElementById('progressCounter');
+const progressDynasty = document.getElementById('progressDynasty');
+const progressEra = document.getElementById('progressEra');
+const progressBar = document.getElementById('timelineProgress');
+const ticks = document.querySelectorAll('.progress-tick');
+
+const allPanels = [];
+
+function updateProgress(progress) {
+  const idx = Math.round(progress * (totalPanels - 1));
+  const d = DYNASTIES[idx];
+  if (!d) return;
+
+  progressFill.style.width = `${progress * 100}%`;
+  progressCounter.textContent = `${idx + 1} / ${totalPanels}`;
+  progressDynasty.textContent = `${d.name} ${d.english}`;
+  progressEra.textContent = d.era;
+
+  ticks.forEach((t, i) => t.classList.toggle('active', i === idx));
+
+  const eraGroup = ERA_GROUPS.find(g => g.eras.includes(d.id));
+  navBtns.forEach(b => b.classList.toggle('active', b.dataset.target === eraGroup?.eras[0]));
+
+  // Toggle in-view on panels near the active one
+  allPanels.forEach((p, i) => {
+    p.classList.toggle('in-view', Math.abs(i - idx) <= 1);
+  });
+}
+
+// ─── GSAP SCROLL SETUP ───
+let mainST = null;
+
+ScrollTrigger.matchMedia({
+  // ─── DESKTOP: horizontal scroll ───
+  "(min-width: 901px)": function() {
+    const panels = gsap.utils.toArray('.dynasty-panel');
+    panels.forEach(p => allPanels.push(p));
+    // First panel visible on load
+    panels[0].classList.add('in-view');
+
+    const horizontalTween = gsap.to(track, {
+      x: () => -(track.scrollWidth - window.innerWidth),
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".timeline-horizontal-section",
+        pin: true,
+        scrub: 1,
+        snap: {
+          snapTo: 1 / (totalPanels - 1),
+          duration: { min: 0.2, max: 0.5 },
+          delay: 0.05,
+          ease: "power1.inOut"
+        },
+        end: () => "+=" + (track.scrollWidth - window.innerWidth),
+        invalidateOnRefresh: true,
+        onUpdate: (self) => updateProgress(self.progress),
+        onEnter: () => progressBar.classList.add('visible'),
+        onLeave: () => progressBar.classList.remove('visible'),
+        onEnterBack: () => progressBar.classList.add('visible'),
+        onLeaveBack: () => progressBar.classList.remove('visible'),
+      }
+    });
+
+    mainST = horizontalTween.scrollTrigger;
+
+    // Panel visibility is handled in updateProgress() via onUpdate
+
+    // Era nav click → scroll to panel
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.target;
+        const panelIndex = DYNASTIES.findIndex(d => d.id === targetId);
+        if (panelIndex === -1 || !mainST) return;
+        const progress = panelIndex / (totalPanels - 1);
+        const scrollTo = mainST.start + (mainST.end - mainST.start) * progress;
+        gsap.to(window, { scrollTo, duration: 1, ease: "power2.inOut" });
+      });
+    });
+
+    // Progress tick click → scroll to panel
+    ticks.forEach(tick => {
+      tick.addEventListener('click', () => {
+        const idx = parseInt(tick.dataset.index);
+        if (!mainST) return;
+        const progress = idx / (totalPanels - 1);
+        const scrollTo = mainST.start + (mainST.end - mainST.start) * progress;
+        gsap.to(window, { scrollTo, duration: 0.8, ease: "power2.inOut" });
+      });
+    });
+
+    // Keyboard nav
+    document.addEventListener('keydown', (e) => {
+      if (!mainST) return;
+      const st = mainST;
+      const currentScroll = window.scrollY;
+      if (currentScroll < st.start - 10 || currentScroll > st.end + 10) return;
+
+      const currentProgress = (currentScroll - st.start) / (st.end - st.start);
+      const currentIdx = Math.round(currentProgress * (totalPanels - 1));
+      let targetIdx = currentIdx;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        targetIdx = Math.min(currentIdx + 1, totalPanels - 1);
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        targetIdx = Math.max(currentIdx - 1, 0);
+        e.preventDefault();
+      } else {
+        return;
+      }
+
+      const progress = targetIdx / (totalPanels - 1);
+      const scrollTo = st.start + (st.end - st.start) * progress;
+      gsap.to(window, { scrollTo, duration: 0.6, ease: "power2.inOut" });
+    });
+  },
+
+  // ─── MOBILE: vertical panels ───
+  "(max-width: 900px)": function() {
+    const panels = gsap.utils.toArray('.dynasty-panel');
+    panels.forEach(panel => {
+      ScrollTrigger.create({
+        trigger: panel,
+        start: "top 85%",
+        onEnter: () => panel.classList.add('in-view'),
+        onEnterBack: () => panel.classList.add('in-view'),
+      });
+    });
+
+    // Nav click for mobile (simple scroll)
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const el = document.getElementById(`dynasty-${btn.dataset.target}`);
+        if (el) gsap.to(window, { scrollTo: { y: el, offsetY: 60 }, duration: 1, ease: "power2.inOut" });
+      });
+    });
+
+    // Mobile nav tracking
+    function updateMobileNav() {
+      const y = window.scrollY + 120;
+      let active = null;
+      ERA_GROUPS.forEach(g => {
+        const el = document.getElementById(`dynasty-${g.eras[0]}`);
+        if (el && el.offsetTop <= y) active = g.eras[0];
+      });
+      navBtns.forEach(b => b.classList.toggle('active', b.dataset.target === active));
+    }
+    window.addEventListener('scroll', updateMobileNav, { passive: true });
+    updateMobileNav();
+  }
+});
+</script>
+
+</body>
+</html>
