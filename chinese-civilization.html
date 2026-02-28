@@ -248,7 +248,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   font-size: clamp(14rem, 24vw, 28rem);
   font-weight: 900;
   color: var(--gold);
-  opacity: 0.04;
+  opacity: 0.06;
   pointer-events: none;
   left: 5%;
   top: 50%;
@@ -258,23 +258,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   will-change: transform;
 }
 
-.panel-artifact-bg {
-  position: absolute;
-  right: 8%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(180px, 18vw, 360px);
-  opacity: 0.035;
-  filter: grayscale(1) contrast(0.5) brightness(1.2);
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
-.panel-artifact-bg img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 
 .panel-content {
   display: flex;
@@ -420,21 +403,25 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
 /* ─── ARTIFACT IMAGE ─── */
 .panel-artifact {
   margin-bottom: 1rem;
-  border-radius: 3px;
   overflow: hidden;
   position: relative;
-  background: rgba(201,168,76,0.03);
-  border: 1px solid rgba(201,168,76,0.08);
+}
+.panel-artifact::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, var(--night) 100%);
+  pointer-events: none;
 }
 .panel-artifact img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
   display: block;
-  filter: sepia(0.1) brightness(0.9);
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  filter: sepia(0.08) brightness(0.85);
   transition: filter 0.4s;
 }
-.panel-artifact:hover img { filter: sepia(0) brightness(1); }
+.panel-artifact:hover img { filter: sepia(0) brightness(0.95); }
 .panel-artifact-caption {
   font-size: 0.6rem;
   color: var(--silk);
@@ -494,41 +481,32 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
 
 /* ─── TERRITORY MAP ─── */
 .panel-map-section {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 1rem 1.2rem;
-  margin-top: auto;
-  background: rgba(201,168,76,0.03);
-  border: 1px solid rgba(201,168,76,0.07);
-  border-radius: 3px;
+  margin-top: 1.5rem;
 }
 .panel-map-label {
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--silk);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
 }
 .panel-map svg {
-  width: 170px;
+  width: 200px;
   height: auto;
-  flex-shrink: 0;
   filter: drop-shadow(0 0 6px rgba(199,62,29,0.15));
 }
 .panel-map-info {
-  flex: 1;
-  min-width: 0;
+  margin-top: 0.4rem;
 }
 .panel-map-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--gold);
-  margin-bottom: 0.3rem;
 }
 .panel-map-desc {
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   color: var(--silk);
   line-height: 1.5;
 }
@@ -536,45 +514,36 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
 .panel-map .territory.active { fill: rgba(199,62,29,0.5); stroke: rgba(199,62,29,0.8); stroke-width: 0.5; }
 .panel-map .china-outline { fill: rgba(201,168,76,0.02); stroke: rgba(201,168,76,0.4); stroke-width: 0.8; stroke-linejoin: round; }
 
-/* ─── PERSON HOVER PREVIEW ─── */
-.person-card {
-  position: relative;
-}
+/* ─── PERSON HOVER EXPAND ─── */
 .person-preview {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  width: max(200px, 90%);
-  max-width: 280px;
-  background: rgba(26,20,16,0.97);
-  border: 1px solid rgba(201,168,76,0.15);
-  border-radius: 3px;
-  padding: 0.7rem 0.9rem;
-  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
   opacity: 0;
-  transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 10;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin 0.35s ease;
+  margin-top: 0;
+  width: 100%;
 }
 .person-card:hover .person-preview {
+  max-height: 200px;
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  margin-top: 0.6rem;
 }
 .person-card.active .person-preview,
-.person-card.auto-expanded .person-preview { display: none; }
+.person-card.auto-expanded .person-preview { max-height: 0; opacity: 0; }
+.person-preview-summary {
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--cloud);
+}
 .person-preview-quote {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: var(--gold-light);
   line-height: 1.5;
-}
-.person-preview-known {
-  font-size: 0.6rem;
-  color: var(--silk);
-  letter-spacing: 0.05em;
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(201,168,76,0.08);
 }
 
 /* ─── PEOPLE IN PANELS ─── */
@@ -589,54 +558,41 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
 }
 
 .panel-people-grid {
-  display: grid;
-  gap: 0.7rem;
-  flex: 1;
-  align-content: start;
-}
-
-.panel-people-grid[data-count="1"] { grid-template-columns: 1fr; }
-.panel-people-grid[data-count="2"] { grid-template-columns: 1fr 1fr; }
-.panel-people-grid[data-count="3"],
-.panel-people-grid[data-count="4"],
-.panel-people-grid[data-count="5"] { grid-template-columns: 1fr 1fr; }
-
-.person-card {
-  background: rgba(201,168,76,0.03);
-  border: 1px solid rgba(201,168,76,0.06);
-  border-radius: 3px;
-  padding: 1rem;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  text-align: center;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+}
+
+.person-card {
+  background: rgba(201,168,76,0.025);
+  border: 1px solid rgba(201,168,76,0.06);
+  border-radius: 0;
+  padding: 0.7rem 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 0 0.8rem;
 }
 
 .person-card:hover {
-  border-color: rgba(201,168,76,0.2);
-  background: rgba(201,168,76,0.06);
-  transform: translateY(-2px);
+  border-color: rgba(201,168,76,0.15);
+  background: rgba(201,168,76,0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
 .person-card.active {
   border-color: var(--vermillion);
-  background: rgba(199,62,29,0.06);
-}
-
-.person-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  background: rgba(199,62,29,0.05);
 }
 
 .person-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 0;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -647,7 +603,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   color: var(--night);
   position: relative;
   overflow: hidden;
-  border: 2px solid rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.1);
 }
 
 .person-avatar.emperor { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
@@ -663,7 +619,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
 .person-avatar.merchant { background: linear-gradient(135deg, #6b5b3d, #a89160); }
 
 .person-avatar-icon {
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -671,7 +627,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 0;
   position: absolute;
   inset: 0;
 }
@@ -684,35 +640,32 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   height: 100%;
 }
 
-.person-name-block { text-align: center; }
+.person-name-block { text-align: left; flex: 1; min-width: 0; }
 
 .person-chinese {
   font-family: 'Noto Serif SC', serif;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--rice);
   line-height: 1.2;
 }
 
 .person-english {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--silk);
   margin-top: 0.15rem;
 }
 
 .person-role {
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 0.4rem;
+  margin-top: 0.25rem;
 }
 
 .person-summary {
-  font-size: 0.72rem;
-  line-height: 1.6;
-  color: var(--cloud);
-  text-align: left;
+  display: none;
 }
 
 .person-bio {
@@ -941,9 +894,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .panel-artifact-bg { display: none; }
-  .panel-people-grid { grid-template-columns: 1fr 1fr; }
-  .panel-artifact img { height: 140px; }
+  .panel-artifact img { max-height: 320px; }
   .panel-stats { flex-wrap: wrap; }
   .panel-map-section { display: none; }
   .person-preview { display: none; }
@@ -964,10 +915,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   .dynasty-panel { padding: 4rem 1rem 2.5rem; }
   .panel-chinese { font-size: clamp(2rem, 10vw, 2.5rem); }
   .panel-english { font-size: 1rem; }
-  .person-card { padding: 0.8rem; }
-  .person-avatar { width: 70px; height: 70px; }
-  .panel-people-grid { grid-template-columns: 1fr; }
-  .panel-artifact img { height: 120px; }
+  .person-card { padding: 0.6rem 0.7rem; }
+  .person-avatar { width: 44px; height: 44px; }
+  .panel-artifact img { max-height: 240px; }
 }
 </style>
 </head>
@@ -1020,7 +970,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--night); color: var(
   <div class="footer-chinese">天下</div>
   <p class="book-note">"All under heaven"</p>
   <p>Built as a companion to Michael Wood's The Story of China (Simon & Schuster, 2020)</p>
-  <p style="margin-top:0.3rem;font-size:0.6rem;opacity:0.5">Portrait images from Wikimedia Commons (public domain)</p>
+  <p style="margin-top:0.3rem;font-size:0.6rem;opacity:0.5">Artifact images from The Metropolitan Museum of Art Open Access (CC0). Portraits from Wikimedia Commons (public domain).</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
@@ -1035,7 +985,7 @@ const DYNASTIES = [
     id: "xia", era: "Ancient Origins", name: "夏", english: "Xia Dynasty",
     dates: "c. 2070 – 1600 BCE", startYear: -2070, endYear: -1600,
     tagline: "The dawn of dynastic rule",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/20251026_Bronze_Jue_from_Erlitou.jpg/500px-20251026_Bronze_Jue_from_Erlitou.jpg", caption: "Bronze jue vessel from Erlitou" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP161556.jpg", caption: "Jade cong ritual object, Liangzhu culture (ca. 2400 BCE) — The Met" },
     featuredQuote: "Yu laboured until there was no hair left on his calves — such was his devotion to the people.",
     quoteAttribution: "Ancient tradition",
     territory: ["north"],
@@ -1057,7 +1007,7 @@ const DYNASTIES = [
     id: "shang", era: "Ancient Origins", name: "商", english: "Shang Dynasty",
     dates: "c. 1600 – 1046 BCE", startYear: -1600, endYear: -1046,
     tagline: "Oracle bones and bronze ritual vessels",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Shang_Bronze_Tripod_Ding_03.jpg/500px-Shang_Bronze_Tripod_Ding_03.jpg", caption: "Shang bronze ding ritual vessel" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP140744.jpg", caption: "Shang bronze ding ritual cauldron (13th–12th c. BCE) — The Met" },
     featuredQuote: "The royal tombs at Yinxu reveal astonishing artistic achievement alongside brutal human sacrifice — a civilisation of extremes.",
     quoteAttribution: "Michael Wood",
     territory: ["north"],
@@ -1086,7 +1036,7 @@ const DYNASTIES = [
     id: "zhou", era: "Ancient Origins", name: "周", english: "Zhou Dynasty",
     dates: "1046 – 256 BCE", startYear: -1046, endYear: -256,
     tagline: "The longest dynasty and the birth of philosophy",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/20230208_Chime_bells_of_Marquis_Yi_of_Zeng.jpg/500px-20230208_Chime_bells_of_Marquis_Yi_of_Zeng.jpg", caption: "Bianzhong bells of Marquis Yi of Zeng" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP155223.jpg", caption: "Eastern Zhou bronze wine vessel with copper inlay (5th c. BCE) — The Met" },
     featuredQuote: "Is it not a joy to have friends come from afar?",
     quoteAttribution: "Confucius, Analects",
     territory: ["north", "central"],
@@ -1129,7 +1079,7 @@ const DYNASTIES = [
     id: "qin", era: "First Empires", name: "秦", english: "Qin Dynasty",
     dates: "221 – 206 BCE", startYear: -221, endYear: -206,
     tagline: "Unification by fire and iron",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/51714-Terracota-Army.jpg/500px-51714-Terracota-Army.jpg", caption: "Terracotta Army, Xi'an" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DT7096.jpg", caption: "Bronze charioteer figure (4th–3rd c. BCE) — The Met" },
     featuredQuote: "He standardised writing, money, weights, and even cart axle widths to unify a fragmented land.",
     quoteAttribution: "Michael Wood",
     territory: ["north", "central", "south"],
@@ -1158,7 +1108,7 @@ const DYNASTIES = [
     id: "han", era: "First Empires", name: "漢", english: "Han Dynasty",
     dates: "206 BCE – 220 CE", startYear: -206, endYear: 220,
     tagline: "The golden age that defined 'Chinese'",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Eastern_Han_Jade_Burial_Suit_-_a.jpg/500px-Eastern_Han_Jade_Burial_Suit_-_a.jpg", caption: "Han dynasty jade burial suit" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DT206.jpg", caption: "Han dynasty earthenware dancer figure (2nd c. BCE) — The Met" },
     featuredQuote: "I wished to examine all that encompasses heaven and man, to penetrate the changes of past and present.",
     quoteAttribution: "Sima Qian",
     territory: ["north", "central", "south", "west"],
@@ -1202,7 +1152,7 @@ const DYNASTIES = [
     id: "three-kingdoms", era: "Division & Reunification", name: "三國", english: "Three Kingdoms",
     dates: "220 – 280 CE", startYear: 220, endYear: 280,
     tagline: "Romance, rivalry, and the art of war",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Battle_of_Red_Cliffs_Peking_Opera_4.jpg/500px-Battle_of_Red_Cliffs_Peking_Opera_4.jpg", caption: "Battle of Red Cliffs — Peking Opera" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DT5080.jpg", caption: "Celadon-glazed funerary urn (hunping), Yue ware (3rd–4th c.) — The Met" },
     featuredQuote: "Everything that is united will fall apart, and everything that is fallen apart will come back together again.",
     quoteAttribution: "Romance of the Three Kingdoms",
     territory: ["north", "central", "south"],
@@ -1231,7 +1181,7 @@ const DYNASTIES = [
     id: "jin-south-north", era: "Division & Reunification", name: "南北朝", english: "Northern & Southern Dynasties",
     dates: "265 – 589 CE", startYear: 265, endYear: 589,
     tagline: "Fragmentation, Buddhism, and cultural fusion",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Ancient_Buddhist_Grottoes_at_Longmen-_Grotto_of_Buddhas%2C_Buddha_Head.jpg/500px-Ancient_Buddhist_Grottoes_at_Longmen-_Grotto_of_Buddhas%2C_Buddha_Head.jpg", caption: "Longmen Grottoes Buddha" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP170102.jpg", caption: "Gilt bronze Buddha Maitreya, Northern Wei (486 CE) — The Met" },
     featuredQuote: "I pluck chrysanthemums under the eastern hedge, and gaze afar towards the southern mountains.",
     quoteAttribution: "Tao Yuanming",
     territory: ["north", "central", "south"],
@@ -1260,7 +1210,7 @@ const DYNASTIES = [
     id: "sui", era: "Division & Reunification", name: "隋", english: "Sui Dynasty",
     dates: "581 – 618 CE", startYear: 581, endYear: 618,
     tagline: "Reunification at immense cost",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/China-Grand_canal%2C_Sui_and_Tang.svg/500px-China-Grand_canal%2C_Sui_and_Tang.svg.png", caption: "Grand Canal route, Sui and Tang" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/53880.jpg", caption: "Sui dynasty glazed earthenware female attendant (late 6th c.) — The Met" },
     featuredQuote: "A feat of engineering that still functions today, 1,400 years later.",
     quoteAttribution: "Michael Wood, on the Grand Canal",
     territory: ["north", "central", "south"],
@@ -1282,7 +1232,7 @@ const DYNASTIES = [
     id: "tang", era: "The Golden Ages", name: "唐", english: "Tang Dynasty",
     dates: "618 – 907 CE", startYear: 618, endYear: 907,
     tagline: "The cosmopolitan apex of Chinese civilisation",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Tang_Sancai_Horse_02.jpg/500px-Tang_Sancai_Horse_02.jpg", caption: "Tang sancai glazed ceramic horse" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP-23918-001.jpg", caption: "Tang dynasty earthenware horse with gilding (7th–8th c.) — The Met" },
     featuredQuote: "Raising my cup I toast the bright moon; with my shadow we are a party of three.",
     quoteAttribution: "Li Bai",
     territory: ["north", "central", "south", "west"],
@@ -1326,7 +1276,7 @@ const DYNASTIES = [
     id: "song", era: "The Golden Ages", name: "宋", english: "Song Dynasty",
     dates: "960 – 1279 CE", startYear: 960, endYear: 1279,
     tagline: "An economic revolution and the world's first modern society",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Along_the_River_7-119-3.jpg/500px-Along_the_River_7-119-3.jpg", caption: "Along the River During Qingming Festival (detail)" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP350151.jpg", caption: "Southern Song celadon vase with dragonfish handles (12th–13th c.) — The Met" },
     featuredQuote: "The moon waxes and wanes, people part and reunite — such things have been imperfect since ancient times.",
     quoteAttribution: "Su Shi",
     territory: ["north", "central", "south"],
@@ -1371,7 +1321,7 @@ const DYNASTIES = [
     id: "yuan", era: "Conquest & Restoration", name: "元", english: "Yuan Dynasty (Mongol)",
     dates: "1271 – 1368 CE", startYear: 1271, endYear: 1368,
     tagline: "When the steppe swallowed the empire",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Yuan_Underglaze_Blue_Jingdezhen_Porcelain_Plate.jpg/500px-Yuan_Underglaze_Blue_Jingdezhen_Porcelain_Plate.jpg", caption: "Yuan blue-and-white porcelain plate" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP274702.jpg", caption: "Yuan blue-and-white porcelain bottle with peony scroll (mid-14th c.) — The Met" },
     featuredQuote: "The Mongol Pax connected China to Europe more directly than ever before.",
     quoteAttribution: "Michael Wood",
     territory: ["north", "central", "south", "west", "northeast"],
@@ -1400,7 +1350,7 @@ const DYNASTIES = [
     id: "ming", era: "Conquest & Restoration", name: "明", english: "Ming Dynasty",
     dates: "1368 – 1644 CE", startYear: 1368, endYear: 1644,
     tagline: "Restoration, exploration, and the Forbidden City",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Hall_of_Supreme_Harmony_2010.jpg/500px-Hall_of_Supreme_Harmony_2010.jpg", caption: "Hall of Supreme Harmony, Forbidden City" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP-32251-001.jpg", caption: "Ming blue-and-white dragon jar, Xuande period (early 15th c.) — The Met" },
     featuredQuote: "A former peasant and rebel who became one of the greatest figures in Chinese history.",
     quoteAttribution: "Michael Wood, on Zhu Yuanzhang",
     territory: ["north", "central", "south", "west"],
@@ -1437,7 +1387,7 @@ const DYNASTIES = [
     id: "qing", era: "Last Empire & Modernity", name: "清", english: "Qing Dynasty (Manchu)",
     dates: "1644 – 1912 CE", startYear: 1644, endYear: 1912,
     tagline: "The last empire — zenith and humiliation",
-    artifact: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Longevity_Hill_of_the_Summer_Palace.jpg/500px-Longevity_Hill_of_the_Summer_Palace.jpg", caption: "Summer Palace, Beijing" },
+    artifact: { url: "https://images.metmuseum.org/CRDImages/as/web-large/DP350728.jpg", caption: "Qing jade landscape with hermits and crane (18th–19th c.) — The Met" },
     featuredQuote: "This era created the 'century of humiliation' that still shapes Chinese politics today.",
     quoteAttribution: "Michael Wood",
     territory: ["north", "central", "south", "west", "northeast"],
@@ -1611,24 +1561,18 @@ DYNASTIES.forEach((d, i) => {
     const avatarContent = imgUrl
       ? `<img src="${imgUrl}" alt="${p.english}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="person-avatar-fallback" style="display:none">${p.icon}</span>`
       : `<span class="person-avatar-fallback">${p.icon}</span>`;
-    // Hover preview: show quote if available, otherwise a "known for" line
-    const previewContent = p.quote
-      ? `<div class="person-preview-quote">"${p.quote}"</div>`
-      : `<div class="person-preview-known">${p.role}</div>`;
+    const previewContent = `<div class="person-preview-summary">${p.summary}</div>${p.quote ? `<div class="person-preview-quote">"${p.quote}"</div>` : ''}`;
     const previewHtml = !autoExpand ? `<div class="person-preview">${previewContent}</div>` : '';
 
     return `
       <div class="person-card${autoExpand ? ' auto-expanded' : ''}" data-person="${d.id}-${pi}">
-        ${previewHtml}
-        <div class="person-header">
-          <div class="person-avatar ${p.type}">${avatarContent}</div>
-          <div class="person-name-block">
-            <div class="person-chinese">${p.chinese}</div>
-            <div class="person-english">${p.english}</div>
-          </div>
+        <div class="person-avatar ${p.type}">${avatarContent}</div>
+        <div class="person-name-block">
+          <div class="person-chinese">${p.chinese}</div>
+          <div class="person-english">${p.english}</div>
+          <div class="person-role">${p.role}</div>
         </div>
-        <div class="person-role">${p.role}</div>
-        <div class="person-summary">${p.summary}</div>
+        ${previewHtml}
         ${bioHtml}
       </div>
     `;
@@ -1660,7 +1604,6 @@ DYNASTIES.forEach((d, i) => {
       <div class="ribbon-labels"><span>2100 BCE</span><span>Present</span></div>
     </div>
     <div class="panel-bg-char">${d.name}</div>
-    ${d.artifact ? `<div class="panel-artifact-bg"><img src="${d.artifact.url}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>` : ''}
     <div class="panel-content">
       <div class="panel-left">
         <div class="panel-era-label">${d.era}</div>
@@ -1804,16 +1747,15 @@ ScrollTrigger.matchMedia({
 
     mainST = horizontalTween.scrollTrigger;
 
-    // ─── PARALLAX DEPTH LAYERS ───
+    // ─── PARALLAX DEPTH LAYER ───
     panels.forEach(panel => {
       const bgChar = panel.querySelector('.panel-bg-char');
-      const artifactBg = panel.querySelector('.panel-artifact-bg');
 
-      // Back layer: character drifts slowly against scroll
+      // Background character drifts slowly against scroll
       gsap.fromTo(bgChar,
-        { x: 60 },
+        { x: 150 },
         {
-          x: -60,
+          x: -150,
           ease: "none",
           scrollTrigger: {
             trigger: panel,
@@ -1824,24 +1766,6 @@ ScrollTrigger.matchMedia({
           }
         }
       );
-
-      // Mid layer: artifact ghost at medium offset
-      if (artifactBg) {
-        gsap.fromTo(artifactBg,
-          { x: 30 },
-          {
-            x: -30,
-            ease: "none",
-            scrollTrigger: {
-              trigger: panel,
-              containerAnimation: horizontalTween,
-              start: "left right",
-              end: "right left",
-              scrub: true,
-            }
-          }
-        );
-      }
     });
 
     // Panel visibility is handled in updateProgress() via onUpdate

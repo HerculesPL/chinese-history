@@ -33,7 +33,34 @@
 - **Mobile excluded** — artifact ghost hidden via `display: none` at `<= 900px`; no parallax tweens run outside desktop `matchMedia` block
 - **Graceful fallback** — `onerror` hides the artifact ghost if the image fails to load
 
-**Design rationale:** The horizontal scroll format makes parallax feel natural rather than gimmicky. Two atmospheric layers behind the content create a rice-paper diorama depth. Values kept deliberately subtle — the effect should be felt, not noticed.
+**Design rationale:** The horizontal scroll format makes parallax feel natural rather than gimmicky. Two atmospheric layers behind the content create a rice-paper diorama depth. Values tuned for perceptibility — bg char at `opacity: 0.06` drifts ±150px, artifact ghost at `opacity: 0.07` drifts ±80px.
+
+### v1.2 — Metropolitan Museum of Art Artifact Images
+
+- **Replaced 13 dynasty artifact images** with public domain works from The Met's Open Access collection (CC0)
+- **Source:** [Metropolitan Museum of Art Collection API](https://metmuseum.github.io/) — department 6 (Asian Art), all `isPublicDomain: true`
+- **Modern eras kept on Wikimedia** — Republic of China (Sun Yat-sen Memorial) and PRC (Great Hall of the People) have no Met equivalents
+- **Updated attribution footer** to credit both The Met and Wikimedia Commons
+
+**Selections by dynasty:**
+
+| Dynasty | Object | Met ID | Medium |
+|---------|--------|--------|--------|
+| Xia | Jade cong ritual object | 72376 | Jade (nephrite) |
+| Shang | Tripod cauldron (ding) | 60514 | Bronze |
+| Zhou | Wine container (hu) with copper inlay | 53960 | Bronze inlaid with copper |
+| Qin | Figure of a charioteer | 53959 | Bronze |
+| Han | Female Dancer | 42178 | Earthenware with pigment |
+| Three Kingdoms | Funerary urn (hunping) | 44733 | Celadon-glazed stoneware |
+| Jin/South-North | Buddha Maitreya | 42733 | Gilt bronze |
+| Sui | Female attendant | 49547 | Glazed earthenware |
+| Tang | Horse with gilding | 49195 | Earthenware with pigment |
+| Song | Vase with dragonfish handles | 42447 | Celadon porcelain |
+| Yuan | Bottle with peony scroll | 49216 | Blue-and-white porcelain |
+| Ming | Jar with dragon | 39666 | Blue-and-white porcelain |
+| Qing | Landscape with hermits and crane | 44218 | Jade (nephrite) |
+
+**Design rationale:** Museum-quality artifacts are more visually cohesive and historically authentic than the mixed Wikimedia sources. Each piece was chosen to be culturally representative of its dynasty and visually compelling as a small image (sculpture and ceramics over paintings or text). The Met's CC0 license means no attribution is legally required, but we credit them anyway.
 
 ---
 
